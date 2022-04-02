@@ -1,6 +1,7 @@
 services:
   postgres-docker:
-    image: postgres
+    container_name: postgre-docker
+    image: postgres:12.10
     environment:
       POSTGRES_DB: dbshop
       POSTGRES_USER: user
@@ -10,9 +11,11 @@ services:
     networks:
       - app-network
   spring-boot-docker:
+    container_name: sprigboot-demoshop
     depends_on:
       - postgres-docker
-    container_name: sprigboot-demoshop
+    environment:
+      - DATABASE_HOST=postgre-docker
     build:
       context: "./"
       dockerfile: "Dockerfile"

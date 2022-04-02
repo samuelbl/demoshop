@@ -2,6 +2,7 @@ package com.samuelapp.demoshop.controler;
 
 import com.samuelapp.demoshop.exception.ResourceNotFoundException;
 import com.samuelapp.demoshop.model.Employee;
+import com.samuelapp.demoshop.model.dto.EmployeeDto;
 import com.samuelapp.demoshop.repository.EmployeeRepository;
 import com.samuelapp.demoshop.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,10 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/employess/")
-    public ResponseEntity<Employee> save(@RequestBody Employee employee, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<Employee> save(@RequestBody EmployeeDto employeeDto, UriComponentsBuilder uriBuilder){
+        Employee employee = employeeService.save(employeeDto);
         URI uri = uriBuilder.path("/employees/{id}").buildAndExpand(employee.getId()).toUri();
-        return  ResponseEntity.created(uri).body(employeeService.save(employee));
+        return  ResponseEntity.created(uri).body(employee);
     }
 
     @GetMapping("/employess/")
@@ -40,9 +42,9 @@ public class EmployeeController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/employes/{id}")
-    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody Employee employee){
-        return ResponseEntity.ok(employeeService.update(employee, id));
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody EmployeeDto employeeDto){
+        return ResponseEntity.ok(employeeService.update(employeeDto, id));
     }
 
 }

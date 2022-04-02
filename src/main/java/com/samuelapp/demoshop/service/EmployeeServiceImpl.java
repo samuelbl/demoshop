@@ -2,7 +2,9 @@ package com.samuelapp.demoshop.service;
 
 import com.samuelapp.demoshop.exception.ResourceNotFoundException;
 import com.samuelapp.demoshop.model.Employee;
+import com.samuelapp.demoshop.model.dto.EmployeeDto;
 import com.samuelapp.demoshop.repository.EmployeeRepository;
+import com.samuelapp.demoshop.util.EmployeeDtoMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private EmployeeDtoMapper employeeDtoMapper;
+
     @Override
-    public Employee save(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee save(EmployeeDto employeeDto) {
+        return employeeRepository.save(employeeDtoMapper.employeDtoToEmployee(employeeDto));
     }
 
     @Override
@@ -32,7 +37,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee update(Employee employee, Integer id) {
+    public Employee update(EmployeeDto employeeDto, Integer id) {
+        Employee employee = employeeDtoMapper.employeDtoToEmployee(employeeDto);
         return employeeRepository.findById(id)
                 .map(record -> {
                     BeanUtils.copyProperties(employee, record, "id");
