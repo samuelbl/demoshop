@@ -1,13 +1,8 @@
 package com.samuelapp.demoshop.model.dto;
 
-import com.samuelapp.demoshop.model.EmployeeType;
-import com.samuelapp.demoshop.model.Shop;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import java.util.Date;
 
 @Data
