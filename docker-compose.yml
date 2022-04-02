@@ -7,3 +7,20 @@ services:
       POSTGRES_PASSWORD: "test"
     ports:
       - "5432:5432"
+    networks:
+      - app-network
+  spring-boot-docker:
+    depends_on:
+      - postgres-docker
+    container_name: sprigboot-demoshop
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

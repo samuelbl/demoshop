@@ -7,7 +7,9 @@ import com.samuelapp.demoshop.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -17,8 +19,9 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/employess/")
-    public Employee save(@RequestBody Employee employee){
-        return employeeService.save(employee);
+    public ResponseEntity<Employee> save(@RequestBody Employee employee, UriComponentsBuilder uriBuilder){
+        URI uri = uriBuilder.path("/employees/{id}").buildAndExpand(employee.getId()).toUri();
+        return  ResponseEntity.created(uri).body(employeeService.save(employee));
     }
 
     @GetMapping("/employess/")
@@ -27,20 +30,19 @@ public class EmployeeController {
     }
 
     @GetMapping("/employess/{id}")
-    public ResponseEntity<Employee> findById(@PathVariable(value = "id") Integer id){
-        return ResponseEntity.ok().body(employeeService.getById(id));
+    public ResponseEntity<Employee> findById(@PathVariable Integer id){
+        return ResponseEntity.ok(employeeService.getById(id));
     }
 
     @DeleteMapping("/employess/{id}")
-    public ResponseEntity<Void> delete(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
         employeeService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/employes/{id}")
-    public ResponseEntity<Employee> update(@PathVariable(value = "id") Integer id,
-                                           @RequestBody Employee employee){
-        return ResponseEntity.ok().body(employeeService.update(employee, id));
+    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody Employee employee){
+        return ResponseEntity.ok(employeeService.update(employee, id));
     }
 
 }
