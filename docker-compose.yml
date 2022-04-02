@@ -1,0 +1,9 @@
+services:
+  postgres-docker:
+    image: postgres
+    environment:
+      POSTGRES_DB: dbshop
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: "test"
+    ports:
+      - "5432:5432"
