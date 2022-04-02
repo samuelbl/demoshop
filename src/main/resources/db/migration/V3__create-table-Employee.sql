@@ -1,5 +1,5 @@
 CREATE TABLE Employee(
-	id INT4 NOT NULL,
+	id SERIAL NOT NULL,
 	name VARCHAR(50),
 	type_id INT4 NOT NULL,
 	shop_id INT4 NOT NULL,
