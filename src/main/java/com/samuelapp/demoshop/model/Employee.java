@@ -4,17 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
-
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "shop")
-public class Shop {
+@Entity(name = "employee")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String address;
+    @ManyToOne
+    private EmployeeType type;
+    @ManyToOne
+    private Shop shop;
     private String telephone;
+    private String address;
+    @Column(name = "employment_date")
+    private Date employmentDate;
 }
