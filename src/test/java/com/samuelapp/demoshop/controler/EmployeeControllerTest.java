@@ -34,7 +34,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(1)
-    void sholdReturn200toGetEmployees() throws Exception {
+    void shouldReturn200toGetEmployees() throws Exception {
         URI uri = new URI("/employees/");
         mockMvc
                 .perform(get(uri).contentType(MediaType.APPLICATION_JSON))
@@ -43,7 +43,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(2)
-    void sholdReturnEmployeeJhon() throws Exception {
+    void shouldReturnEmployeeJhon() throws Exception {
         Employee employee = Employee.builder().id(1).name("Jhon").build();
         URI uri = new URI("/employees/"+employee.getId());
         String result = mockMvc
@@ -54,7 +54,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(3)
-    void sholdReturnNotFound() throws Exception {
+    void shouldReturnNotFound() throws Exception {
         URI uri = new URI("/employees/2");
         mockMvc
                 .perform(get(uri).contentType(MediaType.APPLICATION_JSON))
@@ -74,7 +74,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(5)
-    void sholdUpdateEmployee() throws Exception {
+    void shouldUpdateEmployee() throws Exception {
         EmployeeDto employeeDto = EmployeeDto.builder()
                 .name("Jhon after update").idEmployeType(1).idShop(1).address("Test Street")
                 .telephone("4899184578").employmentDate(LocalDate.of(2020, 1, 8)).build();
@@ -90,7 +90,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(6)
-    void sholdRemoveEmployee() throws Exception {
+    void shouldRemoveEmployee() throws Exception {
         URI uri = new URI("/employees/2");
         mockMvc
                 .perform(delete(uri).contentType(MediaType.APPLICATION_JSON))
