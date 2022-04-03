@@ -19,24 +19,24 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping("/employess/")
+    @PostMapping("/employees/")
     public ResponseEntity<Employee> save(@RequestBody EmployeeDto employeeDto, UriComponentsBuilder uriBuilder){
         Employee employee = employeeService.save(employeeDto);
         URI uri = uriBuilder.path("/employees/{id}").buildAndExpand(employee.getId()).toUri();
         return  ResponseEntity.created(uri).body(employee);
     }
 
-    @GetMapping("/employess/")
+    @GetMapping("/employees/")
     public ResponseEntity<List<Employee>> getAll(){
         return ResponseEntity.ok(employeeService.getAll());
     }
 
-    @GetMapping("/employess/{id}")
+    @GetMapping("/employees/{id}")
     public ResponseEntity<Employee> findById(@PathVariable Integer id){
         return ResponseEntity.ok(employeeService.getById(id));
     }
 
-    @DeleteMapping("/employess/{id}")
+    @DeleteMapping("/employees/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         employeeService.delete(id);
         return ResponseEntity.ok().build();
