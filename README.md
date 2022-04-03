@@ -1,7 +1,7 @@
 # DemoShop API
 
 Spring Boot Crud API demonstrates how to implement simple CRUD operations with a `Employee` entity.
-The construction of DB structure can be seen in the file `ER.png`
+DB structure can be seen in the file `ER.png`
 
 ## What's inside
     
