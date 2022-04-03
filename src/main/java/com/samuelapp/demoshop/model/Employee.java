@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -24,5 +25,5 @@ public class Employee {
     private String telephone;
     private String address;
     @Column(name = "employment_date")
-    private Date employmentDate;
+    private LocalDate employmentDate;
 }
