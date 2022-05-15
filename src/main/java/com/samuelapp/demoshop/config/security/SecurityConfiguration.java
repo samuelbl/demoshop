@@ -42,7 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().disable().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
                 .antMatchers(HttpMethod.GET,"/swagger-ui/**").permitAll()
-                .antMatchers(HttpMethod.GET,"swagger-ui/index.html").permitAll()
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
                 .antMatchers(HttpMethod.GET,"/employees/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/h2-console/**").permitAll()
@@ -54,5 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     //Config about static resources (js, css, images..)
     @Override
     public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
     }
 }
