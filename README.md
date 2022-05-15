@@ -17,6 +17,6 @@ DB structure can be seen in the file `ER.png`
 ## Deploy
 
 To deploy, just run docker-compose. 
-The endpoints are described at `http://localhost:8080/swagger`
+The endpoints are described at `http://localhost:8080/` (swagger)
 
     
