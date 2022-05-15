@@ -22,8 +22,8 @@ public class EmployeeDtoMapper {
     public Employee employeDtoToEmployee(EmployeeDto employeeDto) {
         Shop shop = shopRepository.findById(employeeDto.getIdShop()).orElseThrow(
                 ()-> new ResourceNotFoundException("Shop not found " + employeeDto.getIdShop()));
-        EmployeeType employeeType = employeeTypeRepository.findById(employeeDto.getIdEmployeType()).orElseThrow(
-                ()-> new ResourceNotFoundException("EmployeeType not found " + employeeDto.getIdEmployeType()));
+        EmployeeType employeeType = employeeTypeRepository.findById(employeeDto.getIdEmployeeType()).orElseThrow(
+                ()-> new ResourceNotFoundException("EmployeeType not found " + employeeDto.getIdEmployeeType()));
         return Employee.builder()
                 .address(employeeDto.getAddress())
                 .employmentDate(employeeDto.getEmploymentDate())

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,7 +17,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @ExtendWith(SpringExtension.class)
@@ -63,9 +63,10 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(4)
+    @WithMockUser(username="bristot@gmail.com")
     void shouldSaveNewEmployeeAndReturn201() throws Exception {
         EmployeeDto employeeDto = EmployeeDto.builder()
-                .name("Maria").idEmployeType(1).idShop(1).address("Test Street")
+                .name("Maria").idEmployeeType(1).idShop(1).address("Test Street")
                 .telephone("4899184578").employmentDate(LocalDate.of(2020, 1, 8)).build();
         URI uri = new URI("/employees/");
         mockMvc.perform(post(uri).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(employeeDto)))
@@ -74,9 +75,10 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(5)
+    @WithMockUser(username="bristot@gmail.com")
     void shouldUpdateEmployee() throws Exception {
         EmployeeDto employeeDto = EmployeeDto.builder()
-                .name("Jhon after update").idEmployeType(1).idShop(1).address("Test Street")
+                .name("Jhon after update").idEmployeeType(1).idShop(1).address("Test Street")
                 .telephone("4899184578").employmentDate(LocalDate.of(2020, 1, 8)).build();
         URI uri = new URI("/employees/1");
         mockMvc.perform(put(uri).contentType(MediaType.APPLICATION_JSON)
@@ -90,6 +92,7 @@ public class EmployeeControllerTest {
 
     @Test
     @Order(6)
+    @WithMockUser(username="bristot@gmail.com")
     void shouldRemoveEmployee() throws Exception {
         URI uri = new URI("/employees/2");
         mockMvc

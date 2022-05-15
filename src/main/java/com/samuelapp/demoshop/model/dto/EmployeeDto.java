@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -11,8 +15,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class EmployeeDto {
+    @NotNull
+    @NotEmpty
+    @Length(min = 5)
     private String name;
-    private Integer idEmployeType;
+    @NotNull
+    private Integer idEmployeeType;
+    @NotNull
     private Integer idShop;
     private String telephone;
     private String address;

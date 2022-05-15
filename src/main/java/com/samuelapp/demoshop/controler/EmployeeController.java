@@ -6,10 +6,16 @@ import com.samuelapp.demoshop.model.dto.EmployeeDto;
 import com.samuelapp.demoshop.repository.EmployeeRepository;
 import com.samuelapp.demoshop.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import springfox.documentation.annotations.ApiIgnore;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -20,15 +26,17 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/employees/")
-    public ResponseEntity<Employee> save(@RequestBody EmployeeDto employeeDto, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<Employee> save(@RequestBody @Valid EmployeeDto employeeDto, UriComponentsBuilder uriBuilder){
         Employee employee = employeeService.save(employeeDto);
         URI uri = uriBuilder.path("/employees/{id}").buildAndExpand(employee.getId()).toUri();
         return  ResponseEntity.created(uri).body(employee);
     }
 
     @GetMapping("/employees/")
-    public ResponseEntity<List<Employee>> getAll(){
-        return ResponseEntity.ok(employeeService.getAll());
+    public ResponseEntity<Page<Employee>> getAll(@RequestParam(required = false) String name,
+                                                 @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 10)
+                                                 @ApiIgnore Pageable pageable){
+        return ResponseEntity.ok(employeeService.getAll(name, pageable));
     }
 
     @GetMapping("/employees/{id}")
