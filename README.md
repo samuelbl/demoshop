@@ -7,6 +7,7 @@ DB structure can be seen in the file `ER.png`
     
     * Spring Core/Data
     * Swegger
+    * Spring Security for protectect (insert, delete, update) with JWT stateless
     * H2 to dev profile and PostgreSql to prod profile
     * Unit tests for all API Crud Operations
     * Migrations using flywayDb
